@@ -390,7 +390,7 @@ defmodule CuriousMessenger.Chat do
     Emoji.changeset(emoji, attrs)
   end
 
-  alias CuriousMessenger.Chat.MesageReaction
+  alias CuriousMessenger.Chat.MessageReaction
 
   @doc """
   Returns the list of chat_message_reactions.
@@ -398,92 +398,92 @@ defmodule CuriousMessenger.Chat do
   ## Examples
 
       iex> list_chat_message_reactions()
-      [%MesageReaction{}, ...]
+      [%MessageReaction{}, ...]
 
   """
   def list_chat_message_reactions do
-    Repo.all(MesageReaction)
+    Repo.all(MessageReaction)
   end
 
   @doc """
-  Gets a single mesage_reaction.
+  Gets a single message_reaction.
 
   Raises `Ecto.NoResultsError` if the Mesage reaction does not exist.
 
   ## Examples
 
-      iex> get_mesage_reaction!(123)
-      %MesageReaction{}
+      iex> get_message_reaction!(123)
+      %MessageReaction{}
 
-      iex> get_mesage_reaction!(456)
+      iex> get_message_reaction!(456)
       ** (Ecto.NoResultsError)
 
   """
-  def get_mesage_reaction!(id), do: Repo.get!(MesageReaction, id)
+  def get_message_reaction!(id), do: Repo.get!(MessageReaction, id)
 
   @doc """
-  Creates a mesage_reaction.
+  Creates a message_reaction.
 
   ## Examples
 
-      iex> create_mesage_reaction(%{field: value})
-      {:ok, %MesageReaction{}}
+      iex> create_message_reaction(%{field: value})
+      {:ok, %MessageReaction{}}
 
-      iex> create_mesage_reaction(%{field: bad_value})
+      iex> create_message_reaction(%{field: bad_value})
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_mesage_reaction(attrs \\ %{}) do
-    %MesageReaction{}
-    |> MesageReaction.changeset(attrs)
+  def create_message_reaction(attrs \\ %{}) do
+    %MessageReaction{}
+    |> MessageReaction.changeset(attrs)
     |> Repo.insert()
   end
 
   @doc """
-  Updates a mesage_reaction.
+  Updates a message_reaction.
 
   ## Examples
 
-      iex> update_mesage_reaction(mesage_reaction, %{field: new_value})
-      {:ok, %MesageReaction{}}
+      iex> update_message_reaction(message_reaction, %{field: new_value})
+      {:ok, %MessageReaction{}}
 
-      iex> update_mesage_reaction(mesage_reaction, %{field: bad_value})
+      iex> update_message_reaction(message_reaction, %{field: bad_value})
       {:error, %Ecto.Changeset{}}
 
   """
-  def update_mesage_reaction(%MesageReaction{} = mesage_reaction, attrs) do
-    mesage_reaction
-    |> MesageReaction.changeset(attrs)
+  def update_message_reaction(%MessageReaction{} = message_reaction, attrs) do
+    message_reaction
+    |> MessageReaction.changeset(attrs)
     |> Repo.update()
   end
 
   @doc """
-  Deletes a mesage_reaction.
+  Deletes a message_reaction.
 
   ## Examples
 
-      iex> delete_mesage_reaction(mesage_reaction)
-      {:ok, %MesageReaction{}}
+      iex> delete_message_reaction(message_reaction)
+      {:ok, %MessageReaction{}}
 
-      iex> delete_mesage_reaction(mesage_reaction)
+      iex> delete_message_reaction(message_reaction)
       {:error, %Ecto.Changeset{}}
 
   """
-  def delete_mesage_reaction(%MesageReaction{} = mesage_reaction) do
-    Repo.delete(mesage_reaction)
+  def delete_message_reaction(%MessageReaction{} = message_reaction) do
+    Repo.delete(message_reaction)
   end
 
   @doc """
-  Returns an `%Ecto.Changeset{}` for tracking mesage_reaction changes.
+  Returns an `%Ecto.Changeset{}` for tracking message_reaction changes.
 
   ## Examples
 
-      iex> change_mesage_reaction(mesage_reaction)
-      %Ecto.Changeset{data: %MesageReaction{}}
+      iex> change_message_reaction(message_reaction)
+      %Ecto.Changeset{data: %MessageReaction{}}
 
   """
-  def change_mesage_reaction(%MesageReaction{} = mesage_reaction, attrs \\ %{}) do
-    MesageReaction.changeset(mesage_reaction, attrs)
+  def change_message_reaction(%MessageReaction{} = message_reaction, attrs \\ %{}) do
+    MessageReaction.changeset(message_reaction, attrs)
   end
 
   alias CuriousMessenger.Chat.SeenMessage
