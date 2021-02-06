@@ -12,7 +12,7 @@ defmodule CuriousMessenger.Application do
       # Start the Telemetry supervisor
       CuriousMessengerWeb.Telemetry,
       # Start the PubSub system
-      {Phoenix.PubSub, name: CuriousMessenger.PubSub},
+      {Phoenix.PubSub, [name: CuriousMessenger.PubSub, adapter: Phoenix.PubSub.PG2]},
       # Start the Endpoint (http/https)
       CuriousMessengerWeb.Endpoint
       # Start a worker by calling: CuriousMessenger.Worker.start_link(arg)
