@@ -24,6 +24,7 @@ defmodule CuriousMessengerWeb do
       import Plug.Conn
       import CuriousMessengerWeb.Gettext
       alias CuriousMessengerWeb.Router.Helpers, as: Routes
+      import Phoenix.LiveView.Controller
     end
   end
 
@@ -36,6 +37,9 @@ defmodule CuriousMessengerWeb do
       # Import convenience functions from controllers
       import Phoenix.Controller,
         only: [get_flash: 1, get_flash: 2, view_module: 1, view_template: 1]
+
+      import Phoenix.LiveView,
+        only: [live_render: 2, live_render: 3, live_link: 1, live_link: 2]
 
       # Include shared imports and aliases for views
       unquote(view_helpers())
