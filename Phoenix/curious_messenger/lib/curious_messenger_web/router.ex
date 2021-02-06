@@ -19,6 +19,8 @@ defmodule CuriousMessengerWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+
+    live "/conversations/:conversation_id/users/:user_id", ConversationLive
   end
 
   # Other scopes may use custom stacks.
