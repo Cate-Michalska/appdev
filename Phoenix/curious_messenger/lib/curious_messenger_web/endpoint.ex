@@ -50,5 +50,6 @@ defmodule CuriousMessengerWeb.Endpoint do
   plug Plug.MethodOverride
   plug Plug.Head
   plug Plug.Session, @session_options
+  plug Pow.Plug.Session, otp_app: :curious_messenger
   plug CuriousMessengerWeb.Router
 end
