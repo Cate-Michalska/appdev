@@ -28,8 +28,9 @@ config :phoenix, :json_library, Jason
 
 # Configures Pow
 config :curious_messenger, :pow,
-  user: CuriousMessenger.Users.User,
-  repo: CuriousMessenger.Repo
+  user: CuriousMessenger.Auth.User,
+  repo: CuriousMessenger.Repo,
+  web_module: CuriousMessengerWeb
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

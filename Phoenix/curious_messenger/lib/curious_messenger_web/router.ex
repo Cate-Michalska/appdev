@@ -16,6 +16,11 @@ defmodule CuriousMessengerWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :protected do
+    plug Pow.Plug.RequireAuthenticated,
+      error_handler: Pow.Phoenix.PlugErrorHandler
+  end
+
   scope "/" do
     pipe_through :browser
 
@@ -26,8 +31,14 @@ defmodule CuriousMessengerWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+  end
 
-    live "/conversations/:conversation_id/users/:user_id", ConversationLive
+  scope "/", CuriousMessengerWeb do
+    pipe_through [:browser, :protected]
+
+    resources "/conversations", ConversationController
+
+    live "/conversations/:conversation_id/users/:user_id", ConversationLive, as: :conversation
   end
 
   # Other scopes may use custom stacks.
