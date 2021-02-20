@@ -404,9 +404,27 @@ defmodule CuriousMessenger.Chat do
       {:error, %Ecto.Changeset{}}
   """
   def create_conversation(attrs \\ %{}) do
-    %Conversation{}
-    |> Conversation.changeset(attrs)
-    |> Repo.insert()
+    result =
+      %Conversation{}
+      |> Conversation.changeset(attrs)
+      |> Repo.insert()
+
+    case result do
+      {:ok, conversation} ->
+        conversation.conversation_members
+        |> Enum.each(
+          &CuriousMessengerWeb.Endpoint.broadcast!(
+            "user_conversations_#{&1.user_id}",
+            "new_conversation",
+            conversation
+          )
+        )
+
+        result
+
+      _ ->
+        result
+    end
   end
 
   @doc """
