@@ -24,38 +24,24 @@ defmodule CuriousMessengerWeb.DashboardLive do
      |> assign_contacts(current_user)}
   end
 
-  def handle_event(
-        "create_conversation",
-        %{"conversation" => conversation_form},
-        %{
-          assigns: %{
-            conversation_changeset: changeset,
-            current_user: current_user,
-            contacts: contacts
-          }
-        } = socket
-      ) do
-    conversation_form =
-      Map.put(
-        conversation_form,
-        "title",
-        if(conversation_form["title"] == "",
-          do: build_title(changeset, contacts),
-          else: conversation_form["title"]
-        )
-      )
+  def handle_event("create_conversation", %{"conversation" => conversation_form},
+                  %{assigns: %{conversation_changeset: changeset, contacts: contacts}} = socket) do
+
+    title = if conversation_form["title"] == "" do
+              build_title(changeset, contacts)
+            else
+              conversation_form["title"]
+            end
+
+    conversation_form = Map.put(conversation_form, "title", title)
 
     case Chat.create_conversation(conversation_form) do
       {:ok, _} ->
-        {:noreply,
-         assign(
-           socket,
-           :current_user,
-           Repo.preload(current_user, :conversations, force: true)
-         )}
+        {:noreply, socket}
 
       {:error, err} ->
         Logger.error(inspect(err))
+        {:noreply, socket}
     end
   end
 
@@ -109,6 +95,14 @@ defmodule CuriousMessengerWeb.DashboardLive do
 
     # Reassign the changeset, which will then trigger a re-render
     {:noreply, assign(socket, :conversation_changeset, restored_changeset)}
+  end
+
+  def handle_info(%{event: "new_conversation", payload: new_conversation}, socket) do
+    user = socket.assigns[:current_user]
+    annotated_conversation = new_conversation |> Map.put(:notify, true)
+    user = %{user | conversations: (user.conversations |> Enum.map(&(Map.delete(&1, :notify)))) ++ [annotated_conversation]}
+
+    {:noreply, assign(socket, :current_user, user)}
   end
 
   defp assign_new_conversation_changeset(socket) do
