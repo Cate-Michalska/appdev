@@ -7,15 +7,19 @@
 <div>
     <%= f = form_for :message, "#", [phx_submit: "send_message"] %>
     <%= label f, :content %>
-    <%= text_input f, :content, value: :rand.uniform() %>
+    <%= text_input f, :content %>
     <%= submit "Send" %>
     </form>
 </div>
-<div>
+<div id="conversation" phx-hook="ConversationHooks">
     <b>Messages:</b>
     <%= for message <- @messages do %>
-        <div>
-        <b><%= message.user.nickname %></b>: <%= message.content %>
+        <%= if Map.get(message, :incoming) do %>
+            <div data-incoming="true">
+        <% else %>
+            <div>
+        <% end %>
+            <b><%= message.user.nickname %></b>: <%= message.content %>
         </div>
     <% end %>
 </div>

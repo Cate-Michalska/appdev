@@ -25,8 +25,7 @@ defmodule CuriousMessengerWeb.DashboardLive do
   end
 
   def handle_event("create_conversation", %{"conversation" => conversation_form},
-                  %{assigns: %{conversation_changeset: changeset, contacts: contacts}} = socket) do
-
+                   %{assigns: %{conversation_changeset: changeset, contacts: contacts}} = socket) do
     title = if conversation_form["title"] == "" do
               build_title(changeset, contacts)
             else
