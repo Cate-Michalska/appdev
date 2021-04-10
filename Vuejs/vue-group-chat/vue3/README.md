@@ -1,4 +1,4 @@
-# quick-chat
+# vue3
 
 ## Project setup
 ```
