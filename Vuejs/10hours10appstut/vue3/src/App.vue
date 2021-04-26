@@ -7,6 +7,7 @@
 
 <script>
 import AppHeader from './components/AppHeader.vue'; 
+// import firebase from "./utilities/firebase.js"; 
 
 export default {
   components: { AppHeader }, 
